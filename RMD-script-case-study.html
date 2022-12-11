@@ -1,0 +1,2073 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Garrett Drake" />
+
+<meta name="date" content="2022-12-11" />
+
+<title>Case Study 2 DDS</title>
+
+<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">My Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="RMD-script-case-study.html">DDS Case 2 Project</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Case Study 2 DDS</h1>
+<h4 class="author">Garrett Drake</h4>
+<h4 class="date">2022-12-11</h4>
+
+</div>
+
+
+<div
+id="this-is-a-project-examining-a-fake-company-ddsanalytics-that-specializes-in-talent-management-solutions-for-fortune-100-companies.-we-have-been-tasked-by-ddsanalytics-executive-leadership-to-first-predict-employee-turnover.-additionally-we-were-tasked-to-predict-the-monthly-income-salary-of-workers-from-a-hold-out-data-set.-k-nn-naive-bayes-and-multiple-linear-regression-were-used-in-the-analysis-and-prediction."
+class="section level2">
+<h2>This is a project examining a fake company, DDSAnalytics, that
+specializes in talent management solutions for Fortune 100 companies. We
+have been tasked by DDSAnalytics executive leadership to first predict
+employee turnover. Additionally we were tasked to predict the monthly
+income salary of workers from a hold out data set. K-NN, Naive Bayes,
+and multiple linear regression were used in the analysis and
+prediction.</h2>
+<p><br />
+<br />
+</p>
+</div>
+<div id="an-explatoray-analysis-of-several-variables-in-rshiny."
+class="section level2">
+<h2>An explatoray analysis of several variables in <a
+href="https://garrettdrake317.shinyapps.io/case-study-2-dds-app/">RShiny</a>.</h2>
+<p><br />
+<br />
+</p>
+</div>
+<div id="a-youtube-link-to-the-presentation-video."
+class="section level2">
+<h2>A <a href="https://youtu.be/sWO2Oym2RNk">youtube</a> link to the
+presentation video.</h2>
+<p><br />
+<br />
+</p>
+</div>
+<div id="load-libraries" class="section level2">
+<h2>Load libraries</h2>
+<pre class="r"><code># load libraries
+library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────── tidyverse 1.3.2 ──
+## ✔ ggplot2 3.3.6     ✔ purrr   0.3.4
+## ✔ tibble  3.1.8     ✔ dplyr   1.0.9
+## ✔ tidyr   1.2.0     ✔ stringr 1.4.1
+## ✔ readr   2.1.2     ✔ forcats 0.5.2
+## ── Conflicts ────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(tidyverse)
+library(reshape2)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;reshape2&#39;
+## 
+## The following object is masked from &#39;package:tidyr&#39;:
+## 
+##     smiths</code></pre>
+<pre class="r"><code>library(plotly)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;plotly&#39;
+## 
+## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     last_plot
+## 
+## The following object is masked from &#39;package:stats&#39;:
+## 
+##     filter
+## 
+## The following object is masked from &#39;package:graphics&#39;:
+## 
+##     layout</code></pre>
+<pre class="r"><code>library(caret)</code></pre>
+<pre><code>## Loading required package: lattice
+## 
+## Attaching package: &#39;caret&#39;
+## 
+## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     lift</code></pre>
+<pre class="r"><code>library(GGally)</code></pre>
+<pre><code>## Registered S3 method overwritten by &#39;GGally&#39;:
+##   method from   
+##   +.gg   ggplot2</code></pre>
+<pre class="r"><code>library(car)</code></pre>
+<pre><code>## Loading required package: carData
+## 
+## Attaching package: &#39;car&#39;
+## 
+## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     recode
+## 
+## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     some</code></pre>
+<pre class="r"><code>library(e1071)
+library(class)
+library(kableExtra)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;kableExtra&#39;
+## 
+## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     group_rows</code></pre>
+<pre class="r"><code>library(MASS)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;MASS&#39;
+## 
+## The following object is masked from &#39;package:plotly&#39;:
+## 
+##     select
+## 
+## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     select</code></pre>
+<pre class="r"><code>library(leaps)
+library(imbalance) # use oversample (use overtime as variable)
+library(shiny)</code></pre>
+</div>
+<div id="load-data" class="section level2">
+<h2>Load data</h2>
+<pre class="r"><code># Load Data
+CaseStudy2Data &lt;- read.csv(&quot;C:\\Users\\gdrak\\OneDrive\\Documents\\SMU Doing Data Science\\Unit 14-15 Project\\Case Study Full.csv&quot;, header = TRUE, stringsAsFactors = TRUE)
+
+CaseStudy2NoAttrition &lt;- read.csv(&quot;C:\\Users\\gdrak\\OneDrive\\Documents\\SMU Doing Data Science\\Unit 14-15 Project\\CaseStudy2CompSet No Attrition USE.csv&quot;, header = TRUE)
+
+CaseStudy2CompNoSalary &lt;- read.csv(&quot;C:\\Users\\gdrak\\OneDrive\\Documents\\SMU Doing Data Science\\Unit 14-15 Project\\Case Study No Salary.csv&quot;, header = TRUE)</code></pre>
+<pre class="r"><code>colSums(is.na(CaseStudy2Data)) %&gt;%  
+  kable(&quot;html&quot;, caption = &quot;No missing values&quot;) %&gt;% 
+  kable_styling()</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+No missing values
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+x
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+X
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ID
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Age
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Attrition
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BusinessTravel
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DailyRate
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Department
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DistanceFromHome
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Education
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+EducationField
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+EmployeeCount
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+EmployeeNumber
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+EnvironmentSatisfaction
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Gender
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HourlyRate
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+JobInvolvement
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+JobLevel
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+JobRole
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+JobSatisfaction
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MaritalStatus
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MonthlyIncome
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MonthlyRate
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NumCompaniesWorked
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Over18
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OverTime
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PercentSalaryHike
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PerformanceRating
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RelationshipSatisfaction
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+StandardHours
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+StockOptionLevel
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TotalWorkingYears
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TrainingTimesLastYear
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WorkLifeBalance
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+YearsAtCompany
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+YearsInCurrentRole
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+YearsSinceLastPromotion
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+YearsWithCurrManager
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="data-exploration-and-visualization" class="section level2">
+<h2>Data exploration and visualization</h2>
+<pre class="r"><code>### Explore data
+table(CaseStudy2Data$Attrition) # For attrition 730 no, 140 yes, much higher percentage of no than yes so create data set that has equal number of both so use oversampling</code></pre>
+<pre><code>## 
+##  No Yes 
+## 730 140</code></pre>
+<pre class="r"><code># plot data
+ggplot(CaseStudy2Data, aes(x = Attrition, fill = BusinessTravel)) + geom_bar() + 
+  facet_wrap(~BusinessTravel) +
+  ggtitle(&quot;Business Travel by Attition&quot;)</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = Attrition, fill = Department)) + geom_bar() +
+  facet_wrap(~Department) +
+  ggtitle(&quot;Attition by Department&quot;)# USE highest proportion is in sales</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-2.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = Education, fill = Attrition)) + geom_histogram()+
+  ggtitle(&quot;Attition by Education&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-3.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = Age, fill = Attrition)) + geom_histogram()+
+  ggtitle(&quot;Attition by Age&quot;) # talk about age in presentation</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-4.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = EnvironmentSatisfaction, fill = Attrition)) +
+  geom_histogram()+
+  ggtitle(&quot;Environment Satisfaction by Attition&quot;) # relatively equal proportion across satisfaction</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-5.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = Gender, fill = Attrition)) + geom_bar()+
+  ggtitle(&quot;Attition by Gender&quot;)</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-6.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = JobInvolvement, fill = Attrition)) + geom_histogram()+
+  ggtitle(&quot;Attition by Job Involvement&quot;) + # proportionally 1 has highest attrition, would be expected
+  xlab(&quot;Job Involvement&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-7.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = JobLevel, fill = Attrition)) + geom_histogram()+
+  ggtitle(&quot;Attition by Job level&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-8.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = JobRole, fill = Attrition)) + 
+  theme(axis.text.x=element_text(size=rel(0.8), angle=90)) +
+  geom_bar() +
+  ggtitle(&quot;Attition by Job Role&quot;)</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-9.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = JobSatisfaction, fill = Attrition)) + geom_histogram() +
+  ggtitle(&quot;Attition by Job Satisfaction&quot;) + # relatively equal across
+  xlab(&quot;Job Satisfaction&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-10.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = MonthlyIncome, fill = Attrition)) + geom_histogram() +
+  ggtitle(&quot;Attition by Monthly Income&quot;) + # USE talk about this, much higher attrition with lower monthly incomes
+  xlab(&quot;Monthly Income&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-11.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = MonthlyRate, fill = Attrition)) + geom_histogram() +
+  ggtitle(&quot;Monthly Rate by Attition&quot;)# relatively equal across</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-12.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = NumCompaniesWorked, fill = Attrition)) + 
+  geom_histogram()+
+  ggtitle(&quot;Number of Companies Worked by Attition&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-13.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = MaritalStatus, fill = Attrition)) +
+  geom_bar()+
+  ggtitle(&quot;Attition by Marital Status&quot;) # divorced has really low proportion, then married, and single with highest proportion</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-14.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = OverTime, fill = Attrition)) +
+  geom_bar()+
+  ggtitle(&quot;Attition by Over Time&quot;) + # USE talk about overtime, much higher percentage
+  xlab(&quot;Over time&quot;)</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-15.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = PercentSalaryHike, fill = Attrition)) + 
+  geom_histogram() +
+  ggtitle(&quot;Percent Salary Hike by Attition&quot;)#looks like 15-18 % had highest proportion</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-16.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = RelationshipSatisfaction, fill = Attrition)) + 
+  geom_histogram() +
+  ggtitle(&quot;Relationship Satisfaction by Attition&quot;) # relatively equal</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-17.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = StockOptionLevel, fill = Attrition)) + 
+  geom_histogram() +
+  ggtitle(&quot;Stock Option level by Attition&quot;) # 2 has lowest proportion, 0 has highest number, but also most people</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-18.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = TotalWorkingYears, fill = Attrition)) + 
+  geom_histogram() +
+  ggtitle(&quot;Total Working Years by Attition&quot;) # USE consider talking about this, lower working year tend to have more attrition</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-19.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = TrainingTimesLastYear, fill = Attrition)) + 
+  geom_histogram()+
+  ggtitle(&quot;Training Times Last Year by Attition&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-20.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = WorkLifeBalance, fill = Attrition)) + 
+  geom_histogram() +
+  ggtitle(&quot;Work Life Balance by Attition&quot;) # USE</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-21.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = YearsAtCompany, fill = Attrition)) +
+  geom_histogram() +
+  ggtitle(&quot;Attition by Years At Company&quot;) + # USE lower years tend to have higher attrition, but one outlier at 40 (maybe he/she retired?)
+  xlab(&quot;Years At Company&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-22.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = YearsInCurrentRole, fill = Attrition)) + 
+  geom_histogram() +
+  ggtitle(&quot;Attition by Years In Current Role&quot;) +
+  xlab(&quot;Years In Current Role&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-23.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = YearsSinceLastPromotion, fill = Attrition)) + geom_histogram() +
+  ggtitle(&quot;Years Since Last Promotion&quot;) + # relatively proportionally equal
+  xlab(&quot;Years Since Last Promotion&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-24.png" width="672" /></p>
+<pre class="r"><code>ggplot(CaseStudy2Data, aes(x = YearsWithCurrManager, fill = Attrition)) + 
+  geom_histogram() +
+  ggtitle(&quot;Attition by Years With Current Manager&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/Data%20exploration%20and%20visualization-25.png" width="672" /></p>
+</div>
+<div id="scale-data-for-model-use" class="section level2">
+<h2>Scale data for model use</h2>
+<pre class="r"><code># turn into numeric to run in knn
+case2use &lt;- CaseStudy2Data
+case2use &lt;- case2use[ ,-c(1,2,24, 29)]
+case2use$BusinessTravel &lt;- as.numeric(case2use$BusinessTravel)
+case2use$Department &lt;- as.numeric(case2use$Department)
+case2use$EducationField &lt;- as.numeric(case2use$EducationField)
+case2use$Gender &lt;- as.numeric(case2use$Gender)
+case2use$JobRole &lt;- as.numeric(case2use$JobRole)
+case2use$MaritalStatus &lt;- as.numeric(case2use$MaritalStatus)
+case2use$OverTime &lt;- as.numeric(case2use$OverTime)
+
+
+# Scale data
+case2use$Age &lt;- scale(case2use$Age)
+case2use$MonthlyIncome &lt;- scale(case2use$MonthlyIncome)
+case2use$YearsAtCompany &lt;- scale(case2use$YearsAtCompany)
+case2use$Department &lt;- scale(case2use$Department)
+case2use$JobInvolvement &lt;- scale(case2use$JobInvolvement)
+case2use$YearsInCurrentRole &lt;- scale(case2use$YearsInCurrentRole)
+case2use &lt;- oversample(case2use, method = &quot;ADASYN&quot;, classAttr = &quot;Attrition&quot;)</code></pre>
+<pre class="r"><code>### Set up hyper tuned KNN Model ####
+iterations = 100
+numks &lt;-  100
+splitPerc = .7 #Training / Test split Percentage
+masterAcc = matrix(nrow = iterations, ncol = numks)
+masterSensitivity &lt;- matrix(nrow = iterations, ncol = numks)
+masterSpecificity &lt;- matrix(nrow = iterations, ncol = numks)
+
+for(j in 1:iterations)
+{
+  trainIndices = sample(1:dim(case2use)[1],round(.7 * dim(case2use)[1]))
+  train = case2use[trainIndices, ]
+  test = case2use[-trainIndices, ]
+  for(i in 1:numks)
+  {
+    classifications = knn(train[,c(&quot;Age&quot;,&quot;Gender&quot;, &quot;JobSatisfaction&quot;, &quot;MonthlyIncome&quot;, &quot;YearsAtCompany&quot;, &quot;Department&quot;, &quot;JobInvolvement&quot;, &quot;YearsInCurrentRole&quot;)],test[,c(&quot;Age&quot;,&quot;Gender&quot;, &quot;JobSatisfaction&quot;, &quot;MonthlyIncome&quot;, &quot;YearsAtCompany&quot;, &quot;Department&quot;, &quot;JobInvolvement&quot;, &quot;YearsInCurrentRole&quot;  )],train$Attrition, prob = TRUE, k = i)
+    table(classifications,test$Attrition)
+    CM = confusionMatrix(table(classifications,test$Attrition))
+    masterAcc[j,i] = CM$overall[1]
+    masterSensitivity[j,i] = CM$byClass[1]
+    masterSpecificity[j,i] = CM$byClass[2]
+  }
+  
+}
+
+
+
+MeanAcc &lt;-  colMeans(masterAcc) # get colum means
+plot(seq(1,numks,1),MeanAcc, type = &quot;l&quot;, xlab = &quot;Number of Ks&quot;, ylab = &quot;Mean Accuracy&quot;, main = &quot;k-NN Classification Accuracy for Model predicting Attrition&quot;, col = &quot;blue&quot;) # plot data with labels</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/set%20up%20hyper%20tuned%20KNN%20model-1.png" width="672" /></p>
+<pre class="r"><code>which.max(MeanAcc) # which K gives max percentage</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>max(masterAcc) # find out max percent specificity</code></pre>
+<pre><code>## [1] 0.8352403</code></pre>
+<pre class="r"><code>MeanSpec &lt;-  colMeans(masterSpecificity) # get colum means
+plot(seq(1,numks,1),MeanSpec, type = &quot;l&quot;, xlab = &quot;Number of Ks&quot;, ylab = &quot;Mean Specifitity&quot;, main = &quot;k-NN Classification Accuracy for Model predicting Attrition&quot;, col = &quot;blue&quot;) # plot data with labels</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/set%20up%20hyper%20tuned%20KNN%20model-2.png" width="672" /></p>
+<pre class="r"><code>which.max(MeanSpec) # which K gives max percentage</code></pre>
+<pre><code>## [1] 5</code></pre>
+<pre class="r"><code>max(MeanSpec) # find out max percent specificity</code></pre>
+<pre><code>## [1] 0.8737939</code></pre>
+</div>
+<div id="run-knn-model" class="section level2">
+<h2>Run KNN Model</h2>
+<pre class="r"><code>###  KNN model
+set.seed(317)
+trainIndices = sample(1:dim(case2use)[1],round(.7 * dim(case2use)[1]))
+train &lt;- case2use[trainIndices, ]
+test &lt;- case2use[-trainIndices, ]
+knnModel &lt;- knn(train[,c(&quot;Age&quot;,&quot;Gender&quot;, &quot;JobSatisfaction&quot;, &quot;MonthlyIncome&quot;, &quot;YearsAtCompany&quot;, &quot;Department&quot;, &quot;JobInvolvement&quot;, &quot;YearsInCurrentRole&quot;, &quot;OverTime&quot; )],test[,c(&quot;Age&quot;,&quot;Gender&quot;, &quot;JobSatisfaction&quot;, &quot;MonthlyIncome&quot;, &quot;YearsAtCompany&quot;, &quot;Department&quot;, &quot;JobInvolvement&quot;, &quot;YearsInCurrentRole&quot;, &quot;OverTime&quot; )],train$Attrition, prob = TRUE, k = 3) # run knn test
+
+
+table(knnModel,test$Attrition) # create a table </code></pre>
+<pre><code>##         
+## knnModel  No Yes
+##      No  173  22
+##      Yes  56 186</code></pre>
+<pre class="r"><code>confusionMatrix(table(knnModel,test$Attrition)) # run confusion matrix to get how well model predicted</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##         
+## knnModel  No Yes
+##      No  173  22
+##      Yes  56 186
+##                                           
+##                Accuracy : 0.8215          
+##                  95% CI : (0.7823, 0.8563)
+##     No Information Rate : 0.524           
+##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
+##                                           
+##                   Kappa : 0.6449          
+##                                           
+##  Mcnemar&#39;s Test P-Value : 0.0001866       
+##                                           
+##             Sensitivity : 0.7555          
+##             Specificity : 0.8942          
+##          Pos Pred Value : 0.8872          
+##          Neg Pred Value : 0.7686          
+##              Prevalence : 0.5240          
+##          Detection Rate : 0.3959          
+##    Detection Prevalence : 0.4462          
+##       Balanced Accuracy : 0.8248          
+##                                           
+##        &#39;Positive&#39; Class : No              
+## </code></pre>
+</div>
+<div id="create-naive-bayes-model" class="section level2">
+<h2>Create Naive Bayes Model</h2>
+<pre class="r"><code>set.seed(317)
+trainIndices = sample(1:dim(case2use)[1],round(.7 * dim(case2use)[1]))
+train &lt;- case2use[trainIndices, ]
+test &lt;- case2use[-trainIndices, ]
+nbFit &lt;- naiveBayes(train[,c(&quot;Age&quot;,&quot;Gender&quot;, &quot;JobSatisfaction&quot;, &quot;MonthlyIncome&quot;, &quot;YearsAtCompany&quot;, &quot;Department&quot;, &quot;JobInvolvement&quot;, &quot;YearsInCurrentRole&quot;, &quot;OverTime&quot; )],train$Attrition)
+confusionMatrix(table(predict(nbFit,test[,c(&quot;Age&quot;,&quot;Gender&quot;, &quot;JobSatisfaction&quot;, &quot;MonthlyIncome&quot;, &quot;YearsAtCompany&quot;, &quot;Department&quot;, &quot;JobInvolvement&quot;, &quot;YearsInCurrentRole&quot;, &quot;OverTime&quot; )]),test$Attrition))</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##      
+##        No Yes
+##   No  147  31
+##   Yes  82 177
+##                                           
+##                Accuracy : 0.7414          
+##                  95% CI : (0.6977, 0.7819)
+##     No Information Rate : 0.524           
+##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
+##                                           
+##                   Kappa : 0.4874          
+##                                           
+##  Mcnemar&#39;s Test P-Value : 2.556e-06       
+##                                           
+##             Sensitivity : 0.6419          
+##             Specificity : 0.8510          
+##          Pos Pred Value : 0.8258          
+##          Neg Pred Value : 0.6834          
+##              Prevalence : 0.5240          
+##          Detection Rate : 0.3364          
+##    Detection Prevalence : 0.4073          
+##       Balanced Accuracy : 0.7464          
+##                                           
+##        &#39;Positive&#39; Class : No              
+## </code></pre>
+<pre class="r"><code>  ######### Naive Bayes model for predicting attrition ########
+  iterations = 100
+  masterAcc = matrix(nrow = iterations)
+  masterSensitivity &lt;- matrix(nrow = iterations)
+  masterSpecificity &lt;- matrix(nrow = iterations)
+  splitPerc = .7 #Training / Test split Percentage
+  for(j in 1:iterations)
+  {
+    
+    trainIndices = sample(1:dim(case2use)[1],round(.7 * dim(case2use)[1]))
+    train &lt;- case2use[trainIndices, ]
+    test &lt;- case2use[-trainIndices, ]
+    
+    model = naiveBayes(train[,c(&quot;Age&quot;,&quot;Gender&quot;, &quot;JobSatisfaction&quot;, &quot;MonthlyIncome&quot;, &quot;YearsAtCompany&quot;, &quot;Department&quot;, &quot;JobInvolvement&quot;, &quot;YearsInCurrentRole&quot; )],train$Attrition)
+    CM = confusionMatrix(table(predict(model,test[,c(&quot;Age&quot;,&quot;Gender&quot;, &quot;JobSatisfaction&quot;, &quot;MonthlyIncome&quot;, &quot;YearsAtCompany&quot;, &quot;Department&quot;, &quot;JobInvolvement&quot;, &quot;YearsInCurrentRole&quot; )]),test$Attrition))
+    masterAcc[j] = CM$overall[1]
+    masterSensitivity[j] = CM$byClass[&quot;Sensitivity&quot;]
+    masterSpecificity[j] = CM$byClass[&quot;Specificity&quot;]
+    
+  }
+  MeanAcc = colMeans(masterAcc)
+  MeanAcc # Print mean accuracy</code></pre>
+<pre><code>## [1] 0.6935698</code></pre>
+<pre class="r"><code>  MeanSensitivity = colMeans(masterSensitivity)
+  MeanSensitivity # Print mean sensitivity</code></pre>
+<pre><code>## [1] 0.5889833</code></pre>
+<pre class="r"><code>  MeanSpecificity &lt;- colMeans(masterSpecificity)
+  MeanSpecificity # Print mean specificity</code></pre>
+<pre><code>## [1] 0.7996575</code></pre>
+</div>
+<div id="run-predictions-for-no-attrition-data-set"
+class="section level2">
+<h2>Run predictions for no attrition data set</h2>
+<pre class="r"><code>nbPredict &lt;- predict(nbFit,newdata = CaseStudy2NoAttrition )</code></pre>
+<pre><code>## Warning in predict.naiveBayes(nbFit, newdata =
+## CaseStudy2NoAttrition): Type mismatch between training and new
+## data for variable &#39;Gender&#39;. Did you use factors with numeric
+## labels for training, and numeric values for new data?</code></pre>
+<pre><code>## Warning in predict.naiveBayes(nbFit, newdata =
+## CaseStudy2NoAttrition): Type mismatch between training and new
+## data for variable &#39;Department&#39;. Did you use factors with numeric
+## labels for training, and numeric values for new data?</code></pre>
+<pre><code>## Warning in predict.naiveBayes(nbFit, newdata =
+## CaseStudy2NoAttrition): Type mismatch between training and new
+## data for variable &#39;OverTime&#39;. Did you use factors with numeric
+## labels for training, and numeric values for new data?</code></pre>
+<pre class="r"><code># Create Data Frame with predictions
+Attrition_predictions &lt;- data.frame(CaseStudy2NoAttrition[ ,1], nbPredict)
+names(Attrition_predictions) # get names to rename</code></pre>
+<pre><code>## [1] &quot;CaseStudy2NoAttrition...1.&quot; &quot;nbPredict&quot;</code></pre>
+<pre class="r"><code>Attrition_predictions &lt;- rename(Attrition_predictions, ID = CaseStudy2NoAttrition...1., Predicted_Attrition = nbPredict) # rename columns
+
+Attrition_predictions &lt;- as.data.frame(Attrition_predictions)
+
+# save file to computer
+# write.csv(Attrition_predictions, &quot;C:\\Users\\gdrak\\OneDrive\\Documents\\SMU Doing Data Science\\Unit 14-15 Project\\Case2PredictionsDrake Attrition.csv&quot;, row.names = FALSE)</code></pre>
+</div>
+<div id="print-attrition-predictions" class="section level2">
+<h2>Print Attrition Predictions</h2>
+<pre class="r"><code>print(Attrition_predictions)</code></pre>
+<pre><code>##       ID Predicted_Attrition
+## 1   1171                  No
+## 2   1172                  No
+## 3   1173                  No
+## 4   1174                  No
+## 5   1175                  No
+## 6   1176                  No
+## 7   1177                  No
+## 8   1178                  No
+## 9   1179                  No
+## 10  1180                  No
+## 11  1181                  No
+## 12  1182                  No
+## 13  1183                  No
+## 14  1184                  No
+## 15  1185                  No
+## 16  1186                  No
+## 17  1187                  No
+## 18  1188                  No
+## 19  1189                  No
+## 20  1190                  No
+## 21  1191                  No
+## 22  1192                  No
+## 23  1193                  No
+## 24  1194                  No
+## 25  1195                  No
+## 26  1196                 Yes
+## 27  1197                  No
+## 28  1198                  No
+## 29  1199                 Yes
+## 30  1200                  No
+## 31  1201                  No
+## 32  1202                  No
+## 33  1203                  No
+## 34  1204                  No
+## 35  1205                  No
+## 36  1206                  No
+## 37  1207                  No
+## 38  1208                  No
+## 39  1209                  No
+## 40  1210                  No
+## 41  1211                 Yes
+## 42  1212                  No
+## 43  1213                  No
+## 44  1214                  No
+## 45  1215                  No
+## 46  1216                  No
+## 47  1217                  No
+## 48  1218                 Yes
+## 49  1219                 Yes
+## 50  1220                  No
+## 51  1221                 Yes
+## 52  1222                  No
+## 53  1223                  No
+## 54  1224                  No
+## 55  1225                  No
+## 56  1226                  No
+## 57  1227                  No
+## 58  1228                  No
+## 59  1229                  No
+## 60  1230                  No
+## 61  1231                  No
+## 62  1232                  No
+## 63  1233                  No
+## 64  1234                  No
+## 65  1235                  No
+## 66  1236                  No
+## 67  1237                  No
+## 68  1238                  No
+## 69  1239                  No
+## 70  1240                  No
+## 71  1241                  No
+## 72  1242                  No
+## 73  1243                  No
+## 74  1244                 Yes
+## 75  1245                  No
+## 76  1246                  No
+## 77  1247                  No
+## 78  1248                  No
+## 79  1249                 Yes
+## 80  1250                 Yes
+## 81  1251                  No
+## 82  1252                  No
+## 83  1253                  No
+## 84  1254                  No
+## 85  1255                  No
+## 86  1256                  No
+## 87  1257                  No
+## 88  1258                 Yes
+## 89  1259                  No
+## 90  1260                  No
+## 91  1261                  No
+## 92  1262                  No
+## 93  1263                  No
+## 94  1264                  No
+## 95  1265                  No
+## 96  1266                  No
+## 97  1267                  No
+## 98  1268                  No
+## 99  1269                  No
+## 100 1270                  No
+## 101 1271                  No
+## 102 1272                  No
+## 103 1273                  No
+## 104 1274                  No
+## 105 1275                  No
+## 106 1276                  No
+## 107 1277                 Yes
+## 108 1278                  No
+## 109 1279                 Yes
+## 110 1280                  No
+## 111 1281                  No
+## 112 1282                  No
+## 113 1283                 Yes
+## 114 1284                 Yes
+## 115 1285                  No
+## 116 1286                  No
+## 117 1287                  No
+## 118 1288                  No
+## 119 1289                  No
+## 120 1290                 Yes
+## 121 1291                 Yes
+## 122 1292                  No
+## 123 1293                  No
+## 124 1294                 Yes
+## 125 1295                 Yes
+## 126 1296                  No
+## 127 1297                  No
+## 128 1298                  No
+## 129 1299                  No
+## 130 1300                 Yes
+## 131 1301                  No
+## 132 1302                  No
+## 133 1303                  No
+## 134 1304                  No
+## 135 1305                  No
+## 136 1306                  No
+## 137 1307                 Yes
+## 138 1308                  No
+## 139 1309                  No
+## 140 1310                  No
+## 141 1311                  No
+## 142 1312                  No
+## 143 1313                  No
+## 144 1314                  No
+## 145 1315                  No
+## 146 1316                  No
+## 147 1317                  No
+## 148 1318                  No
+## 149 1319                  No
+## 150 1320                 Yes
+## 151 1321                  No
+## 152 1322                  No
+## 153 1323                  No
+## 154 1324                  No
+## 155 1325                  No
+## 156 1326                  No
+## 157 1327                  No
+## 158 1328                  No
+## 159 1329                  No
+## 160 1330                  No
+## 161 1331                  No
+## 162 1332                  No
+## 163 1333                  No
+## 164 1334                  No
+## 165 1335                  No
+## 166 1336                  No
+## 167 1337                  No
+## 168 1338                  No
+## 169 1339                  No
+## 170 1340                  No
+## 171 1341                  No
+## 172 1342                  No
+## 173 1343                  No
+## 174 1344                 Yes
+## 175 1345                  No
+## 176 1346                  No
+## 177 1347                  No
+## 178 1348                  No
+## 179 1349                  No
+## 180 1350                  No
+## 181 1351                  No
+## 182 1352                  No
+## 183 1353                  No
+## 184 1354                  No
+## 185 1355                  No
+## 186 1356                  No
+## 187 1357                  No
+## 188 1358                  No
+## 189 1359                  No
+## 190 1360                  No
+## 191 1361                  No
+## 192 1362                  No
+## 193 1363                  No
+## 194 1364                 Yes
+## 195 1365                  No
+## 196 1366                  No
+## 197 1367                  No
+## 198 1368                  No
+## 199 1369                 Yes
+## 200 1370                  No
+## 201 1371                  No
+## 202 1372                  No
+## 203 1373                  No
+## 204 1374                 Yes
+## 205 1375                  No
+## 206 1376                  No
+## 207 1377                  No
+## 208 1378                  No
+## 209 1379                 Yes
+## 210 1380                  No
+## 211 1381                  No
+## 212 1382                  No
+## 213 1383                 Yes
+## 214 1384                  No
+## 215 1385                  No
+## 216 1386                  No
+## 217 1387                  No
+## 218 1388                  No
+## 219 1389                  No
+## 220 1390                 Yes
+## 221 1391                  No
+## 222 1392                  No
+## 223 1393                  No
+## 224 1394                  No
+## 225 1395                  No
+## 226 1396                  No
+## 227 1397                  No
+## 228 1398                  No
+## 229 1399                  No
+## 230 1400                 Yes
+## 231 1401                  No
+## 232 1402                  No
+## 233 1403                  No
+## 234 1404                  No
+## 235 1405                  No
+## 236 1406                  No
+## 237 1407                  No
+## 238 1408                  No
+## 239 1409                 Yes
+## 240 1410                  No
+## 241 1411                  No
+## 242 1412                  No
+## 243 1413                  No
+## 244 1414                 Yes
+## 245 1415                  No
+## 246 1416                  No
+## 247 1417                  No
+## 248 1418                  No
+## 249 1419                  No
+## 250 1420                  No
+## 251 1421                  No
+## 252 1422                  No
+## 253 1423                  No
+## 254 1424                  No
+## 255 1425                  No
+## 256 1426                  No
+## 257 1427                  No
+## 258 1428                  No
+## 259 1429                  No
+## 260 1430                  No
+## 261 1431                  No
+## 262 1432                  No
+## 263 1433                  No
+## 264 1434                  No
+## 265 1435                  No
+## 266 1436                  No
+## 267 1437                  No
+## 268 1438                  No
+## 269 1439                  No
+## 270 1440                  No
+## 271 1441                 Yes
+## 272 1442                  No
+## 273 1443                  No
+## 274 1444                  No
+## 275 1445                  No
+## 276 1446                  No
+## 277 1447                  No
+## 278 1448                  No
+## 279 1449                  No
+## 280 1450                  No
+## 281 1451                  No
+## 282 1452                  No
+## 283 1453                  No
+## 284 1454                  No
+## 285 1455                  No
+## 286 1456                  No
+## 287 1457                  No
+## 288 1458                  No
+## 289 1459                  No
+## 290 1460                  No
+## 291 1461                  No
+## 292 1462                 Yes
+## 293 1463                  No
+## 294 1464                  No
+## 295 1465                  No
+## 296 1466                 Yes
+## 297 1467                  No
+## 298 1468                  No
+## 299 1469                  No
+## 300 1470                  No</code></pre>
+</div>
+<div id="explore-correlations-for-regression-predicting-income"
+class="section level2">
+<h2>Explore Correlations for regression predicting income</h2>
+<pre class="r"><code># Get individual correlations to narrow down variable selection for model
+cor(CaseStudy2Data$MonthlyIncome, CaseStudy2Data$Age) # .484</code></pre>
+<pre><code>## [1] 0.4842883</code></pre>
+<pre class="r"><code>cor(CaseStudy2Data$MonthlyIncome, CaseStudy2Data$Education) # .127 correlation</code></pre>
+<pre><code>## [1] 0.1271314</code></pre>
+<pre class="r"><code>cor(CaseStudy2Data$MonthlyIncome, CaseStudy2Data$JobLevel) # .95164 correlation</code></pre>
+<pre><code>## [1] 0.95164</code></pre>
+<pre class="r"><code>cor(CaseStudy2Data$MonthlyIncome, CaseStudy2Data$MonthlyRate) # .0646</code></pre>
+<pre><code>## [1] 0.06459407</code></pre>
+<pre class="r"><code>cor(CaseStudy2Data$MonthlyIncome, CaseStudy2Data$NumCompaniesWorked) # .1558</code></pre>
+<pre><code>## [1] 0.1558943</code></pre>
+<pre class="r"><code>cor(CaseStudy2Data$MonthlyIncome, CaseStudy2Data$PercentSalaryHike) # -.0539</code></pre>
+<pre><code>## [1] -0.05386594</code></pre>
+<pre class="r"><code>cor(CaseStudy2Data$MonthlyIncome, CaseStudy2Data$TotalWorkingYears) # .7785</code></pre>
+<pre><code>## [1] 0.7785112</code></pre>
+<pre class="r"><code>cor(CaseStudy2Data$MonthlyIncome, CaseStudy2Data$YearsAtCompany) # .491</code></pre>
+<pre><code>## [1] 0.491379</code></pre>
+<pre class="r"><code>cor(CaseStudy2Data$MonthlyIncome, CaseStudy2Data$YearsInCurrentRole) # .3618</code></pre>
+<pre><code>## [1] 0.3618405</code></pre>
+<pre class="r"><code>cor(CaseStudy2Data$MonthlyIncome, CaseStudy2Data$YearsSinceLastPromotion) # .3159</code></pre>
+<pre><code>## [1] 0.3159116</code></pre>
+<pre class="r"><code>cor(CaseStudy2Data$MonthlyIncome, CaseStudy2Data$YearsWithCurrManager) # .3284</code></pre>
+<pre><code>## [1] 0.3284875</code></pre>
+<pre class="r"><code>CaseStudy2Data$GenderMF &lt;- ifelse(CaseStudy2Data$Gender == &quot;Male&quot;, 0, 1) # turn into number for correlation
+cor(CaseStudy2Data$MonthlyIncome, CaseStudy2Data$GenderMF) # .055</code></pre>
+<pre><code>## [1] 0.05515709</code></pre>
+</div>
+<div id="visually-plot-data" class="section level2">
+<h2>Visually plot data</h2>
+<pre class="r"><code>ggpairs(CaseStudy2Data[ , c(3, 9, 17, 21, 22, 23, 26, 31, 34:38 )]) # look at visual of all together</code></pre>
+<pre><code>## plot: [1,1] [----------------------------------] 1% est: 0s
+## plot: [1,2] [----------------------------------] 1% est: 4s
+## plot: [1,3] [&gt;---------------------------------] 2% est: 5s
+## plot: [1,4] [&gt;---------------------------------] 2% est: 5s
+## plot: [1,5] [&gt;---------------------------------] 3% est: 5s
+## plot: [1,6] [&gt;---------------------------------] 4% est: 5s
+## plot: [1,7] [&gt;---------------------------------] 4% est: 5s
+## plot: [1,8] [=&gt;--------------------------------] 5% est: 5s
+## plot: [1,9] [=&gt;--------------------------------] 5% est: 5s
+## plot: [1,10] [=&gt;-------------------------------] 6% est: 5s
+## plot: [1,11] [=&gt;-------------------------------] 7% est: 5s
+## plot: [1,12] [=&gt;-------------------------------] 7% est: 5s
+## plot: [1,13] [==&gt;------------------------------] 8% est: 5s
+## plot: [2,1] [==&gt;-------------------------------] 8% est: 5s
+## plot: [2,2] [==&gt;-------------------------------] 9% est: 5s
+## plot: [2,3] [==&gt;-------------------------------] 9% est: 5s
+## plot: [2,4] [==&gt;-------------------------------] 10% est: 5s
+## plot: [2,5] [===&gt;------------------------------] 11% est: 5s
+## plot: [2,6] [===&gt;------------------------------] 11% est: 5s
+## plot: [2,7] [===&gt;------------------------------] 12% est: 5s
+## plot: [2,8] [===&gt;------------------------------] 12% est: 5s
+## plot: [2,9] [===&gt;------------------------------] 13% est: 5s
+## plot: [2,10] [===&gt;-----------------------------] 14% est: 5s
+## plot: [2,11] [====&gt;----------------------------] 14% est: 5s
+## plot: [2,12] [====&gt;----------------------------] 15% est: 5s
+## plot: [2,13] [====&gt;----------------------------] 15% est: 5s
+## plot: [3,1] [====&gt;-----------------------------] 16% est: 5s
+## plot: [3,2] [=====&gt;----------------------------] 17% est: 5s
+## plot: [3,3] [=====&gt;----------------------------] 17% est: 5s
+## plot: [3,4] [=====&gt;----------------------------] 18% est: 5s
+## plot: [3,5] [=====&gt;----------------------------] 18% est: 5s
+## plot: [3,6] [=====&gt;----------------------------] 19% est: 5s
+## plot: [3,7] [======&gt;---------------------------] 20% est: 5s
+## plot: [3,8] [======&gt;---------------------------] 20% est: 4s
+## plot: [3,9] [======&gt;---------------------------] 21% est: 4s
+## plot: [3,10] [======&gt;--------------------------] 21% est: 4s
+## plot: [3,11] [======&gt;--------------------------] 22% est: 4s
+## plot: [3,12] [======&gt;--------------------------] 22% est: 4s
+## plot: [3,13] [=======&gt;-------------------------] 23% est: 4s
+## plot: [4,1] [=======&gt;--------------------------] 24% est: 4s
+## plot: [4,2] [=======&gt;--------------------------] 24% est: 4s
+## plot: [4,3] [=======&gt;--------------------------] 25% est: 4s
+## plot: [4,4] [========&gt;-------------------------] 25% est: 4s
+## plot: [4,5] [========&gt;-------------------------] 26% est: 4s
+## plot: [4,6] [========&gt;-------------------------] 27% est: 4s
+## plot: [4,7] [========&gt;-------------------------] 27% est: 4s
+## plot: [4,8] [========&gt;-------------------------] 28% est: 4s
+## plot: [4,9] [=========&gt;------------------------] 28% est: 4s
+## plot: [4,10] [=========&gt;-----------------------] 29% est: 4s
+## plot: [4,11] [=========&gt;-----------------------] 30% est: 4s
+## plot: [4,12] [=========&gt;-----------------------] 30% est: 4s
+## plot: [4,13] [=========&gt;-----------------------] 31% est: 4s
+## plot: [5,1] [==========&gt;-----------------------] 31% est: 4s
+## plot: [5,2] [==========&gt;-----------------------] 32% est: 4s
+## plot: [5,3] [==========&gt;-----------------------] 33% est: 4s
+## plot: [5,4] [==========&gt;-----------------------] 33% est: 4s
+## plot: [5,5] [==========&gt;-----------------------] 34% est: 4s
+## plot: [5,6] [===========&gt;----------------------] 34% est: 4s
+## plot: [5,7] [===========&gt;----------------------] 35% est: 4s
+## plot: [5,8] [===========&gt;----------------------] 36% est: 4s
+## plot: [5,9] [===========&gt;----------------------] 36% est: 4s
+## plot: [5,10] [===========&gt;---------------------] 37% est: 3s
+## plot: [5,11] [===========&gt;---------------------] 37% est: 3s
+## plot: [5,12] [===========&gt;---------------------] 38% est: 3s
+## plot: [5,13] [============&gt;--------------------] 38% est: 3s
+## plot: [6,1] [============&gt;---------------------] 39% est: 3s
+## plot: [6,2] [============&gt;---------------------] 40% est: 3s
+## plot: [6,3] [=============&gt;--------------------] 40% est: 3s
+## plot: [6,4] [=============&gt;--------------------] 41% est: 3s
+## plot: [6,5] [=============&gt;--------------------] 41% est: 3s
+## plot: [6,6] [=============&gt;--------------------] 42% est: 3s
+## plot: [6,7] [=============&gt;--------------------] 43% est: 3s
+## plot: [6,8] [==============&gt;-------------------] 43% est: 3s
+## plot: [6,9] [==============&gt;-------------------] 44% est: 3s
+## plot: [6,10] [==============&gt;------------------] 44% est: 3s
+## plot: [6,11] [==============&gt;------------------] 45% est: 3s
+## plot: [6,12] [==============&gt;------------------] 46% est: 3s
+## plot: [6,13] [==============&gt;------------------] 46% est: 3s
+## plot: [7,1] [===============&gt;------------------] 47% est: 3s
+## plot: [7,2] [===============&gt;------------------] 47% est: 3s
+## plot: [7,3] [===============&gt;------------------] 48% est: 3s
+## plot: [7,4] [===============&gt;------------------] 49% est: 3s
+## plot: [7,5] [================&gt;-----------------] 49% est: 3s
+## plot: [7,6] [================&gt;-----------------] 50% est: 3s
+## plot: [7,7] [================&gt;-----------------] 50% est: 3s
+## plot: [7,8] [================&gt;-----------------] 51% est: 3s
+## plot: [7,9] [=================&gt;----------------] 51% est: 3s
+## plot: [7,10] [================&gt;----------------] 52% est: 3s
+## plot: [7,11] [================&gt;----------------] 53% est: 3s
+## plot: [7,12] [=================&gt;---------------] 53% est: 3s
+## plot: [7,13] [=================&gt;---------------] 54% est: 3s
+## plot: [8,1] [==================&gt;---------------] 54% est: 2s
+## plot: [8,2] [==================&gt;---------------] 55% est: 2s
+## plot: [8,3] [==================&gt;---------------] 56% est: 2s
+## plot: [8,4] [==================&gt;---------------] 56% est: 2s
+## plot: [8,5] [==================&gt;---------------] 57% est: 2s
+## plot: [8,6] [===================&gt;--------------] 57% est: 2s
+## plot: [8,7] [===================&gt;--------------] 58% est: 2s
+## plot: [8,8] [===================&gt;--------------] 59% est: 2s
+## plot: [8,9] [===================&gt;--------------] 59% est: 2s
+## plot: [8,10] [===================&gt;-------------] 60% est: 2s
+## plot: [8,11] [===================&gt;-------------] 60% est: 2s
+## plot: [8,12] [===================&gt;-------------] 61% est: 2s
+## plot: [8,13] [===================&gt;-------------] 62% est: 2s
+## plot: [9,1] [====================&gt;-------------] 62% est: 2s
+## plot: [9,2] [====================&gt;-------------] 63% est: 2s
+## plot: [9,3] [=====================&gt;------------] 63% est: 2s
+## plot: [9,4] [=====================&gt;------------] 64% est: 2s
+## plot: [9,5] [=====================&gt;------------] 64% est: 2s
+## plot: [9,6] [=====================&gt;------------] 65% est: 2s
+## plot: [9,7] [=====================&gt;------------] 66% est: 2s
+## plot: [9,8] [======================&gt;-----------] 66% est: 2s
+## plot: [9,9] [======================&gt;-----------] 67% est: 2s
+## plot: [9,10] [=====================&gt;-----------] 67% est: 2s
+## plot: [9,11] [=====================&gt;-----------] 68% est: 2s
+## plot: [9,12] [======================&gt;----------] 69% est: 2s
+## plot: [9,13] [======================&gt;----------] 69% est: 2s
+## plot: [10,1] [======================&gt;----------] 70% est: 2s
+## plot: [10,2] [======================&gt;----------] 70% est: 2s
+## plot: [10,3] [======================&gt;----------] 71% est: 2s
+## plot: [10,4] [=======================&gt;---------] 72% est: 2s
+## plot: [10,5] [=======================&gt;---------] 72% est: 1s
+## plot: [10,6] [=======================&gt;---------] 73% est: 1s
+## plot: [10,7] [=======================&gt;---------] 73% est: 1s
+## plot: [10,8] [=======================&gt;---------] 74% est: 1s
+## plot: [10,9] [========================&gt;--------] 75% est: 1s
+## plot: [10,10] [=======================&gt;--------] 75% est: 1s
+## plot: [10,11] [=======================&gt;--------] 76% est: 1s
+## plot: [10,12] [=======================&gt;--------] 76% est: 1s
+## plot: [10,13] [========================&gt;-------] 77% est: 1s
+## plot: [11,1] [=========================&gt;-------] 78% est: 1s
+## plot: [11,2] [=========================&gt;-------] 78% est: 1s
+## plot: [11,3] [=========================&gt;-------] 79% est: 1s
+## plot: [11,4] [=========================&gt;-------] 79% est: 1s
+## plot: [11,5] [=========================&gt;-------] 80% est: 1s
+## plot: [11,6] [==========================&gt;------] 80% est: 1s
+## plot: [11,7] [==========================&gt;------] 81% est: 1s
+## plot: [11,8] [==========================&gt;------] 82% est: 1s
+## plot: [11,9] [==========================&gt;------] 82% est: 1s
+## plot: [11,10] [==========================&gt;-----] 83% est: 1s
+## plot: [11,11] [==========================&gt;-----] 83% est: 1s
+## plot: [11,12] [==========================&gt;-----] 84% est: 1s
+## plot: [11,13] [==========================&gt;-----] 85% est: 1s
+## plot: [12,1] [===========================&gt;-----] 85% est: 1s
+## plot: [12,2] [===========================&gt;-----] 86% est: 1s
+## plot: [12,3] [============================&gt;----] 86% est: 1s
+## plot: [12,4] [============================&gt;----] 87% est: 1s
+## plot: [12,5] [============================&gt;----] 88% est: 1s
+## plot: [12,6] [============================&gt;----] 88% est: 1s
+## plot: [12,7] [============================&gt;----] 89% est: 1s
+## plot: [12,8] [============================&gt;----] 89% est: 1s
+## plot: [12,9] [=============================&gt;---] 90% est: 1s
+## plot: [12,10] [============================&gt;---] 91% est: 0s
+## plot: [12,11] [============================&gt;---] 91% est: 0s
+## plot: [12,12] [============================&gt;---] 92% est: 0s
+## plot: [12,13] [=============================&gt;--] 92% est: 0s
+## plot: [13,1] [==============================&gt;--] 93% est: 0s
+## plot: [13,2] [==============================&gt;--] 93% est: 0s
+## plot: [13,3] [==============================&gt;--] 94% est: 0s
+## plot: [13,4] [==============================&gt;--] 95% est: 0s
+## plot: [13,5] [==============================&gt;--] 95% est: 0s
+## plot: [13,6] [===============================&gt;-] 96% est: 0s
+## plot: [13,7] [===============================&gt;-] 96% est: 0s
+## plot: [13,8] [===============================&gt;-] 97% est: 0s
+## plot: [13,9] [===============================&gt;-] 98% est: 0s
+## plot: [13,10] [==============================&gt;-] 98% est: 0s
+## plot: [13,11] [===============================&gt;] 99% est: 0s
+## plot: [13,12] [===============================&gt;] 99% est: 0s
+## plot: [13,13] [================================]100% est: 0s</code></pre>
+<p><img src="RMD-script-case-study_files/figure-html/visually%20plot%20data%20with%20ggpairs%20with%20selected%20variables-1.png" width="672" /></p>
+</div>
+<div id="build-regression-model" class="section level2">
+<h2>Build regression model</h2>
+<pre class="r"><code># 4 variables to use - job level, total working years, age/years at company, department
+fit &lt;- lm(MonthlyIncome ~ JobLevel + TotalWorkingYears + YearsInCurrentRole + Department, data = CaseStudy2Data)
+summary(fit)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = MonthlyIncome ~ JobLevel + TotalWorkingYears + YearsInCurrentRole + 
+##     Department, data = CaseStudy2Data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5619.6  -827.1    37.6   751.3  4190.8 
+## 
+## Coefficients:
+##                                  Estimate Std. Error t value
+## (Intercept)                      -1392.87     247.59  -5.626
+## JobLevel                          3776.93      69.79  54.117
+## TotalWorkingYears                   57.77      10.60   5.448
+## YearsInCurrentRole                 -41.03      14.66  -2.799
+## DepartmentResearch &amp; Development  -265.99     239.12  -1.112
+## DepartmentSales                   -677.18     247.08  -2.741
+##                                  Pr(&gt;|t|)    
+## (Intercept)                      2.50e-08 ***
+## JobLevel                          &lt; 2e-16 ***
+## TotalWorkingYears                6.65e-08 ***
+## YearsInCurrentRole                0.00524 ** 
+## DepartmentResearch &amp; Development  0.26628    
+## DepartmentSales                   0.00626 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1370 on 864 degrees of freedom
+## Multiple R-squared:  0.9117, Adjusted R-squared:  0.9112 
+## F-statistic:  1784 on 5 and 864 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre class="r"><code>vif(fit) # check vif for multicolinearity </code></pre>
+<pre><code>##                        GVIF Df GVIF^(1/(2*Df))
+## JobLevel           2.679604  1        1.636950
+## TotalWorkingYears  2.938637  1        1.714245
+## YearsInCurrentRole 1.317457  1        1.147805
+## Department         1.051666  2        1.012673</code></pre>
+</div>
+<div id="leave-one-out-cross-validation-model-to-get-rmse"
+class="section level2">
+<h2>Leave One Out Cross Validation model to get RMSE</h2>
+<pre class="r"><code>set.seed(65)
+fit2 &lt;- train(MonthlyIncome ~ JobLevel + TotalWorkingYears + YearsInCurrentRole + Department, method = &quot;lm&quot;, data = CaseStudy2Data, trCorontol = trainControl(method = &quot;LOOCV&quot;))</code></pre>
+<pre><code>## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded
+
+## Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+##  extra argument &#39;trCorontol&#39; will be disregarded</code></pre>
+<pre class="r"><code>fit2 # LOOCV shows RMSE of 1360, which is less than $3000</code></pre>
+<pre><code>## Linear Regression 
+## 
+## 870 samples
+##   4 predictor
+## 
+## No pre-processing
+## Resampling: Bootstrapped (25 reps) 
+## Summary of sample sizes: 870, 870, 870, 870, 870, 870, ... 
+## Resampling results:
+## 
+##   RMSE      Rsquared   MAE     
+##   1360.632  0.9140433  1031.134
+## 
+## Tuning parameter &#39;intercept&#39; was held constant at a value
+##  of TRUE</code></pre>
+</div>
+<div id="get-predictions-for-monthly-income" class="section level2">
+<h2>Get predictions for Monthly Income</h2>
+<pre class="r"><code># Get predictions for Monthly Income
+pred_monthly_inc &lt;- predict(fit2, CaseStudy2CompNoSalary)
+
+# Create Data Frame with predictions
+Inc_predictions &lt;- data.frame(CaseStudy2CompNoSalary[ ,1], pred_monthly_inc)
+names(Inc_predictions) # get names to rename</code></pre>
+<pre><code>## [1] &quot;CaseStudy2CompNoSalary...1.&quot; &quot;pred_monthly_inc&quot;</code></pre>
+<pre class="r"><code>Inc_predictions &lt;- rename(Inc_predictions, ID = CaseStudy2CompNoSalary...1., Predicted_Income = pred_monthly_inc) # rename columns
+Inc_predictions &lt;- as.data.frame(Inc_predictions)</code></pre>
+<pre class="r"><code>print(Inc_predictions)</code></pre>
+<pre><code>##       ID Predicted_Income
+## 1    871         5600.966
+## 2    872         2324.849
+## 3    873        14136.900
+## 4    874         2242.783
+## 5    875         2235.223
+## 6    876         6581.420
+## 7    877         5658.734
+## 8    878         2151.543
+## 9    879         2408.529
+## 10   880        15042.097
+## 11   881        10591.042
+## 12   882         2440.386
+## 13   883         5830.426
+## 14   884         5690.592
+## 15   885         6061.501
+## 16   886         6044.013
+## 17   887         6530.460
+## 18   888         6299.385
+## 19   889         6185.462
+## 20   890         2566.543
+## 21   891         6086.660
+## 22   892         9698.600
+## 23   893         9452.403
+## 24   894         5625.262
+## 25   895        11060.001
+## 26   896        10036.899
+## 27   897         9896.203
+## 28   898        14333.751
+## 29   899         5733.239
+## 30   900         2382.618
+## 31   901         2382.618
+## 32   902         6119.270
+## 33   903         6236.422
+## 34   904         2580.221
+## 35   905        14416.568
+## 36   906         5632.823
+## 37   907        10515.785
+## 38   908         6275.088
+## 39   909         2151.543
+## 40   910         2175.839
+## 41   911        18382.791
+## 42   912         2706.377
+## 43   913         2399.354
+## 44   914        10070.371
+## 45   915         6275.088
+## 46   916         6060.749
+## 47   917         2209.311
+## 48   918         5649.559
+## 49   919         1764.650
+## 50   920         2811.296
+## 51   921         1855.890
+## 52   922         2175.839
+## 53   923         6414.922
+## 54   924         6615.583
+## 55   925        15200.282
+## 56   926         2408.529
+## 57   927         5774.272
+## 58   928        10170.787
+## 59   929         2175.839
+## 60   930         2292.991
+## 61   931         5775.886
+## 62   932         9962.395
+## 63   933         9551.205
+## 64   934         2291.377
+## 65   935         2175.839
+## 66   936         2349.146
+## 67   937        10571.940
+## 68   938        10629.708
+## 69   939         6647.612
+## 70   940         1764.650
+## 71   941         2820.471
+## 72   942         9650.006
+## 73   943        10221.747
+## 74   944         6044.013
+## 75   945         1706.881
+## 76   946         6077.485
+## 77   947         1764.650
+## 78   948         2209.311
+## 79   949         2558.982
+## 80   950         5781.833
+## 81   951         2572.660
+## 82   952         5658.734
+## 83   953         6234.055
+## 84   954         2300.552
+## 85   955         6250.791
+## 86   956        10457.846
+## 87   957        11645.249
+## 88   958         2408.529
+## 89   959        10473.890
+## 90   960        18921.060
+## 91   961         2259.519
+## 92   962         6086.660
+## 93   963         6522.899
+## 94   964         6731.121
+## 95   965         2151.543
+## 96   966        18777.997
+## 97   967         2242.783
+## 98   968         9469.139
+## 99   969        15215.403
+## 100  970         2324.849
+## 101  971         5600.966
+## 102  972         6185.462
+## 103  973         2324.849
+## 104  974         2175.839
+## 105  975         6101.782
+## 106  976         2226.047
+## 107  977         6910.544
+## 108  978         2382.618
+## 109  979        10079.546
+## 110  980        18554.483
+## 111  981         1930.395
+## 112  982        10045.212
+## 113  983         2382.618
+## 114  984         1913.659
+## 115  985         5822.865
+## 116  986         2539.188
+## 117  987         2175.839
+## 118  988         5765.097
+## 119  989        10638.883
+## 120  990         2209.311
+## 121  991         6747.857
+## 122  992         2283.816
+## 123  993         6484.924
+## 124  994         5772.657
+## 125  995         5707.328
+## 126  996         6285.877
+## 127  997         2250.344
+## 128  998        14836.933
+## 129  999         9584.677
+## 130 1000         2175.839
+## 131 1001         7003.228
+## 132 1002         5772.657
+## 133 1003         6267.527
+## 134 1004         7050.378
+## 135 1005         2613.693
+## 136 1006         5921.667
+## 137 1007         1740.353
+## 138 1008         6390.625
+## 139 1009        18440.560
+## 140 1010         5947.578
+## 141 1011        10654.005
+## 142 1012         6588.228
+## 143 1013         5742.414
+## 144 1014         6489.427
+## 145 1015         5880.634
+## 146 1016         2416.090
+## 147 1017         2449.561
+## 148 1018         9510.172
+## 149 1019         9584.677
+## 150 1020         2118.071
+## 151 1021         5716.503
+## 152 1022         5888.195
+## 153 1023         6217.319
+## 154 1024        10500.664
+## 155 1025        14415.816
+## 156 1026        18438.946
+## 157 1027         6598.847
+## 158 1028         5608.526
+## 159 1029         5632.823
+## 160 1030        11078.180
+## 161 1031         5632.823
+## 162 1032         2674.519
+## 163 1033         9863.593
+## 164 1034         2175.839
+## 165 1035         6243.230
+## 166 1036         2175.839
+## 167 1037         5625.262
+## 168 1038        10574.998
+## 169 1039        10068.757
+## 170 1040         6243.230
+## 171 1041         2300.552
+## 172 1042         2382.618
+## 173 1043         9551.205
+## 174 1044         5949.192
+## 175 1045         2283.816
+## 176 1046         2175.839
+## 177 1047         6217.319
+## 178 1048        10118.965
+## 179 1049         2498.155
+## 180 1050         5806.129
+## 181 1051        11348.844
+## 182 1052         2539.188
+## 183 1053         6275.088
+## 184 1054         2382.618
+## 185 1055         2382.618
+## 186 1056         2382.618
+## 187 1057         6159.550
+## 188 1058        13775.166
+## 189 1059         7258.600
+## 190 1060         2341.585
+## 191 1061         6276.702
+## 192 1062         6127.693
+## 193 1063         6310.174
+## 194 1064         1798.121
+## 195 1065         6465.130
+## 196 1066         2283.816
+## 197 1067         3150.347
+## 198 1068        18803.909
+## 199 1069         5649.559
+## 200 1070         1855.890
+## 201 1071         1995.724
+## 202 1072         6235.670
+## 203 1073         1781.385
+## 204 1074         6472.691
+## 205 1075         5830.426
+## 206 1076        14039.713
+## 207 1077        18194.364
+## 208 1078         6144.429
+## 209 1079         6472.691
+## 210 1080         6828.479
+## 211 1081         2498.155
+## 212 1082         2226.047
+## 213 1083         1764.650
+## 214 1084         5981.050
+## 215 1085         9962.395
+## 216 1086         9882.695
+## 217 1087         5748.361
+## 218 1088         2464.683
+## 219 1089         2382.618
+## 220 1090         5748.361
+## 221 1091         5600.966
+## 222 1092         5857.952
+## 223 1093         9921.362
+## 224 1094         5847.162
+## 225 1095         6118.518
+## 226 1096         6151.990
+## 227 1097         3059.106
+## 228 1098         2648.608
+## 229 1099         2580.221
+## 230 1100         6349.593
+## 231 1101        18110.684
+## 232 1102         5781.833
+## 233 1103         5947.578
+## 234 1104        11200.587
+## 235 1105         2498.155
+## 236 1106         2375.057
+## 237 1107         2350.760
+## 238 1108         6656.616
+## 239 1109         5600.966
+## 240 1110         5707.328
+## 241 1111         6310.174
+## 242 1112         9905.378
+## 243 1113        10292.271
+## 244 1114         6400.553
+## 245 1115        10541.696
+## 246 1116         2334.024
+## 247 1117         6934.841
+## 248 1118         6144.429
+## 249 1119        11058.386
+## 250 1120         2086.965
+## 251 1121        10334.056
+## 252 1122        14844.494
+## 253 1123         6144.429
+## 254 1124        14391.520
+## 255 1125         2233.608
+## 256 1126         1764.650
+## 257 1127         2341.585
+## 258 1128         6332.857
+## 259 1129        13898.264
+## 260 1130         2226.047
+## 261 1131        10109.790
+## 262 1132        14292.718
+## 263 1133         6390.625
+## 264 1134         2226.047
+## 265 1135         2531.627
+## 266 1136         2341.585
+## 267 1137         2936.008
+## 268 1138         5938.403
+## 269 1139         9832.488
+## 270 1140        13847.304
+## 271 1141         6472.691
+## 272 1142         5774.272
+## 273 1143        10780.332
+## 274 1144         5632.823
+## 275 1145         6682.527
+## 276 1146         5822.865
+## 277 1147         6118.518
+## 278 1148         2267.080
+## 279 1149         2209.311
+## 280 1150         6120.132
+## 281 1151         2267.080
+## 282 1152         5863.898
+## 283 1153         6927.280
+## 284 1154         2134.807
+## 285 1155         6367.943
+## 286 1156        14374.784
+## 287 1157         1913.659
+## 288 1158         6761.535
+## 289 1159         2267.080
+## 290 1160         6217.319
+## 291 1161         2300.552
+## 292 1162        10249.624
+## 293 1163         2425.265
+## 294 1164        10159.998
+## 295 1165         2292.991
+## 296 1166         2151.543
+## 297 1167        10070.371
+## 298 1168         5666.295
+## 299 1169         2341.585
+## 300 1170         2292.991</code></pre>
+</div>
+<div id="save-file-to-computer-to-upload" class="section level2">
+<h2>Save file to computer to upload</h2>
+<pre class="r"><code># Write file
+# write.csv(Inc_predictions, &quot;C:\\Users\\gdrak\\OneDrive\\Documents\\SMU Doing Data Science\\Unit 14-15 Project\\Case2PredictionsDrake Salary.csv&quot;)</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
